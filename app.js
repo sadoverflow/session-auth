@@ -6,7 +6,6 @@ import { sessionOptions } from "./config/session.js";
 import { createClient } from "redis";
 import authRouter from "./api/routes/authRouter.js";
 import { isAuth } from "./api/middlewares/auth.js";
-import { limiter } from "./rate-limiter.js";
 
 const app = express();
 
@@ -35,10 +34,6 @@ app.use(
 );
 
 app.use("/api/auth", authRouter);
-
-app.post("/test", limiter, (req, res) => {
-    res.status(200).json({ message: "test route" });
-});
 
 app.get("/", (req, res) => {
     res.render("index");
