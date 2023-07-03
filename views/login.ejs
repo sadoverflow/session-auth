@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Session Auth</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #form-container {
+                background-color: darkgray;
+                padding: 1.5rem;
+            }
+
+            #header {
+                margin-bottom: 1rem;
+            }
+
+            #login-form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .form-control {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-control input {
+                width: 100%;
+                padding: 5px;
+                font-size: 20px;
+            }
+            button {
+                width: 100%;
+                font-size: 25px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div id="form-container">
+                <div id="header"><h2>Login Form</h2></div>
+                <form id="login-form">
+                    <div class="form-control">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" required />
+                    </div>
+                    <div class="form-control">
+                        <label for="password"> Password </label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                        />
+                    </div>
+                    <button>submit</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            const form = document.getElementById("login-form");
+
+            form.addEventListener("submit", async (e) => {
+                try {
+                    e.preventDefault();
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+                    const userInfo = { email, password };
+
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(userInfo),
+                    });
+                    const data = await res.json();
+                    if (data.status === 200) {
+                        window.location.assign("/dash");
+                        return;
+                    } else {
+                        const { error } = data;
+                        alert(error);
+                        return;
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Session Auth</title>
+    </head>
+    <body>
+        <div class="main">
+            <h1>Dashboard protected page</h1>
+            <h2>Hello <%= userEmail %> !</h2>
+            <button id="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </body>
+    <script>
+        async function logout() {
+            try {
+                const res = await fetch("/api/auth/logout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const data = await res.json();
+
+                if (data.status === 200) {
+                    window.location.assign("/login");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+</html>
