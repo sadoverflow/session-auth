@@ -5,7 +5,7 @@ import session from "express-session";
 import { sessionOptions } from "./config/session.js";
 import { createClient } from "redis";
 import authRouter from "./api/routes/authRouter.js";
-import { isAuth } from "./api/middlewares/auth.js";
+import { isAuth } from "./api/middlewares/isAuth.js";
 
 const app = express();
 
