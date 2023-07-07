@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import RedisStore from "connect-redis";
 import session from "express-session";
-import { sessionOptions } from "./config/session.js";
 import { createClient } from "redis";
 import authRouter from "./api/routes/authRouter.js";
 import isAuth from "./api/middlewares/isAuth.js";
@@ -27,7 +26,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
     session({
         store: redisStore,
-        ...sessionOptions,
+        name: "qid",
+        resave: false,
+        saveUninitialized: false,
+        secret: process.env.SESSION_SECRET,
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 3,
+            httpOnly: true,
+            secure: false,
+        },
     })
 );
 
