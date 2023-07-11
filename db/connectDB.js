@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const connectDB = (uri) => {
-    return mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+    return mongoose.connect(uri);
 };
 
 export default connectDB;
