@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv/config.js";
+import "dotenv/config.js";
 import morgan from "morgan";
 import RedisStore from "connect-redis";
 import session from "express-session";
