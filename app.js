@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+import dotenv from "dotenv/config.js";
 import morgan from "morgan";
 import RedisStore from "connect-redis";
 import session from "express-session";
@@ -7,8 +7,6 @@ import { createClient } from "redis";
 import authRouter from "./api/routes/authRouter.js";
 import isAuth from "./api/middlewares/isAuth.js";
 import connectDB from "./db/connectDB.js";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8001;
