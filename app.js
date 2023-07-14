@@ -1,12 +1,12 @@
 import express from "express";
 import "dotenv/config.js";
+import mongoose from "mongoose";
 import morgan from "morgan";
 import RedisStore from "connect-redis";
 import session from "express-session";
 import { createClient } from "redis";
 import authRouter from "./api/routes/authRouter.js";
 import isAuth from "./api/middlewares/isAuth.js";
-import connectDB from "./db/connectDB.js";
 
 const app = express();
 const PORT = process.env.PORT || 8001;
@@ -62,7 +62,7 @@ app.all("*", (req, res) => {
 
 const start = async () => {
     try {
-        await connectDB(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI);
         await redisClient.connect();
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
