@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 
 app.get("/dash", isAuth, (req, res) => {
     res.render("dash", {
-        userEmail: req.session.user.email,
+        userEmail: req.session?.user?.email,
     });
 });
 

@@ -84,15 +84,18 @@
             form.addEventListener("submit", async (e) => {
                 try {
                     e.preventDefault();
+
                     const email = document.getElementById("email").value;
                     const password = document.getElementById("password").value;
                     const passwordConfirm = document.getElementById(
                         "password-confirmation"
                     ).value;
+
                     if (password !== passwordConfirm) {
                         alert("passwords must match");
                         return;
                     }
+
                     const userInfo = { email, password: passwordConfirm };
 
                     const res = await fetch("/api/auth/signup", {
@@ -100,14 +103,13 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(userInfo),
                     });
+
                     const data = await res.json();
                     if (data.status === 200) {
                         window.location.assign("/login");
-                        return;
                     } else {
                         const { error } = data;
                         alert(error);
-                        return;
                     }
                 } catch (err) {
                     console.log(err);

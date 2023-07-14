@@ -75,6 +75,7 @@
             form.addEventListener("submit", async (e) => {
                 try {
                     e.preventDefault();
+
                     const email = document.getElementById("email").value;
                     const password = document.getElementById("password").value;
                     const userInfo = { email, password };
@@ -84,14 +85,13 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(userInfo),
                     });
+
                     const data = await res.json();
                     if (data.status === 200) {
                         window.location.assign("/dash");
-                        return;
                     } else {
                         const { error } = data;
                         alert(error);
-                        return;
                     }
                 } catch (err) {
                     console.log(err);
