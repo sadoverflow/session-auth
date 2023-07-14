@@ -64,8 +64,8 @@ app.all("*", (req, res) => {
 
 const start = async () => {
     try {
-        await redisClient.connect();
         await connectDB(process.env.MONGODB_URI);
+        await redisClient.connect();
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
