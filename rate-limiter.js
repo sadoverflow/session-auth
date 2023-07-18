@@ -4,7 +4,7 @@ export const loginLimiter = rateLimiter({
     max: 5,
     windowMS: 1000 * 60 * 30,
     message: {
-        error: "You can't make any more requests at the moment. Try again later",
+        error: "Too Many Requests",
         status: 429,
     },
     standardHeaders: true,
