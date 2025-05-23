@@ -1,2 +1,1 @@
-this is express session auth app
-it also uses redis for storing session 
+Session-Auth using Express-js and EJS temple engine
